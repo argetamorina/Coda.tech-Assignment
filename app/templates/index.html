@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>User Administration</title>
+    {% load staticfiles %}
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+  </head>
+  <body>
+    <h1>Hello World!</h1>
+
+    {% block content %}
+      <h2>Login</h2>
+      
+       <br>
+      <p><strong>-- OR --</strong></p>
+      <a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a><br>
+
+    {% endblock %}
+  </body>
+</html>
