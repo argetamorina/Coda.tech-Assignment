@@ -1,3 +1,46 @@
 body {
   background-color: #fff;
 }
+
+h1 {
+  margin: auto;
+  text-align: center;
+}
+
+.home a {
+  /* margin-top: 50px; */
+  margin: auto;
+}
+
+.users-content .create-link {
+  /* margin-top: 40px; */
+  float: right;
+  margin-right: 20px;
+}
+
+.users-content {
+  margin-top: 20px;
+}
+
+.users-content .create {
+  float: right;
+  margin-top: 100px;
+  margin-right: 20px;
+}
+
+.users-content p {
+  font-size: 36px;
+}
+
+.table-content {
+  margin-top: 190px;
+}
+
+form {
+  margin-top: 40px;
+}
+
+form input {
+  display: block;
+  margin-bottom: 10px;
+}

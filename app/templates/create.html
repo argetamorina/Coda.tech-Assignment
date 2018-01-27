@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>User Authentication Create</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+  </head>
+  <body>
+    <div class="container">
+      <form action="/users/create" method="post">
+        {% csrf_token %}
+        Name: <input type="text" name="first_name" value="">
+        Last Name:<input type="text" name="last_name" value="">
+        IBAN: <input type="text" name="iban" value="">
+        <button type="submit" class="btn">Create a new user</button>
+      </form>
+    </div>
+  </body>
+</html>
