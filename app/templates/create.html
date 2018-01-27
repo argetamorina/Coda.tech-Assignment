@@ -10,12 +10,34 @@
   </head>
   <body>
     <div class="container">
+      {% block content %}
+        {% if user.is_authenticated %}
+          <p class="display-4">Hello, {{ user.first_name }} {{ user.last_name }} ({{ user.email }})</p>
+          <a href="/logout">Log Out</a>
+        {% else %}
+          <a class="lead" href="{% url 'login' %}">Log in</a>
+        {% endif %}
+      {% endblock content %}
+      
       <form action="/users/create" method="post">
         {% csrf_token %}
-        Name: <input type="text" name="first_name" value="">
-        Last Name:<input type="text" name="last_name" value="">
-        IBAN: <input type="text" name="iban" value="">
-        <button type="submit" class="btn">Create a new user</button>
+        <div class="form-group">
+          Name: <input type="text" name="first_name" class="form-control {{class}}">
+          <em class="invalid-feedback">{{errors.name}}</em>
+        </div>
+        <div class="form-group">
+          Last Name:<input type="text" name="last_name" class="form-control {{class}}">
+          <em class="invalid-feedback">{{errors.last_name}}</em>
+
+        </div>
+        <div class="form-group">
+          IBAN: <input type="text" name="iban" class="form-control {{class}}">
+          <em class="invalid-feedback">{{errors.iban}}</em>
+
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">Create a new user</button>
+        </div>
       </form>
     </div>
   </body>

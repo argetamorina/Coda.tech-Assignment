@@ -21,8 +21,8 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index),
+    url(r'^users/create', views.create),
     url(r'^users/', views.users, name="users"),
-    url(r'^create', views.create),
     # url(r'^users/create/new', views.new),
     url(r'^logout/', views.logout),
     url(r'^auth/', include('social_django.urls', namespace='social')),

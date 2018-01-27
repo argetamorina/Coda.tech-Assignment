@@ -17,7 +17,7 @@
         <a class="lead" href="{% url 'login' %}">Log in</a>
       {% endif %}
     {% endblock content %}
-      <a class="create-link" href="/create">Create a New User</a>
+      <a class="create-link" href="/users/create">Create a New User</a>
       <table class="table table-content">
       <caption>List of users</caption>
       <thead>
@@ -31,30 +31,16 @@
         </tr>
       </thead>
       <tbody>
+        {% for customer in customers %}
         <tr>
           <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@fat</td>
+          <td>{{customer.first_name}}</td>
+          <td>{{customer.last_name}}</td>
+          <td>{{customer.iban}}</td>
           <td><a href="#">Edit</a></td>
           <td><a href="#">Delete</a></td>
         </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-          <td><a href="#">Edit</a></td>
-          <td><a href="#">Delete</a></td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
-          <td><a href="#">Edit</a></td>
-          <td><a href="#">Delete</a></td>
-        </tr>
+        {% endfor %}
       </tbody>
     </table>
   </div>
