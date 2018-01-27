@@ -16,33 +16,41 @@
       {% else %}
         <a class="lead" href="{% url 'login' %}">Log in</a>
       {% endif %}
-    {% endblock content %}
       <a class="create-link" href="/users/create">Create a New User</a>
       <table class="table table-content">
-      <caption>List of users</caption>
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">First Name</th>
-          <th scope="col">Last Name</th>
-          <th scope="col">IBAN</th>
-          <th scope="col">Edit</th>
-          <th scope="col">Delete</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for customer in customers %}
-        <tr>
-          <th scope="row">1</th>
-          <td>{{customer.first_name}}</td>
-          <td>{{customer.last_name}}</td>
-          <td>{{customer.iban}}</td>
-          <td><a href="#">Edit</a></td>
-          <td><a href="#">Delete</a></td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+        <caption>List of users</caption>
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">IBAN</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for customer in customers %}
+            <tr>
+              <th scope="row">{{customer.id}}</th>
+              <td>{{customer.first_name}}</td>
+              <td>{{customer.last_name}}</td>
+              <td>{{customer.iban}}</td>
+              <td>
+                {% if user.id == customer.administrator.id %}
+                  <a href="/update/{{user.id}}">Edit</a>
+                {% endif %}
+              </td>
+              <td>
+                {% if user.id == customer.administrator.id %}
+                  <a href="/destroy/{{customer.id}}">Delete</a>
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endblock content%}
   </div>
 
 </body>

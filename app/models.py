@@ -30,6 +30,13 @@ class CustomerManager(models.Manager):
             customer = self.create(first_name=first_name, last_name=last_name, iban=iban, administrator=administrator)
             return(True, administrator.id)
 
+    def remove(self, administrator, customer):
+        try:
+            customer = self.get(id=customer, administrator__id=administrator)
+
+            customer.delete()
+        except Exception as e:
+            pass
 
 class Customer(models.Model):
     first_name = models.CharField(max_length=45, blank=True)
