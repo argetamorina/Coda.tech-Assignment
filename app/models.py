@@ -8,13 +8,12 @@ from numbers import Number
 # Create your models here.
 class CustomerManager(models.Manager):
     def validation(self, **kwargs):
-        print('Validation')
         first_name = kwargs['first_name']
         last_name = kwargs['last_name']
         iban = kwargs['iban']
         administrator = kwargs['administrator']
-        print(administrator.first_name)
         errors = {}
+
         if first_name == '':
             errors['name'] = 'First Name should not be empty .'
 
@@ -27,7 +26,19 @@ class CustomerManager(models.Manager):
         if errors:
             return(False, errors)
         else:
-            customer = self.create(first_name=first_name, last_name=last_name, iban=iban, administrator=administrator)
+            return(True, '')
+
+    def create(self, **kwargs):
+        first_name = kwargs['first_name']
+        last_name = kwargs['last_name']
+        iban = kwargs['iban']
+        administrator = kwargs['administrator']
+        validation = self.validation(first_name=first_name, last_name=last_name, iban=iban, administrator=administrator)
+        if not validation[0]:
+            return(False, validation[1])
+        else:
+            customer = Customer(first_name=first_name, last_name=last_name, iban=iban, administrator=administrator)
+            customer.save()
             return(True, administrator.id)
 
     def remove(self, administrator, customer):
@@ -44,11 +55,19 @@ class CustomerManager(models.Manager):
         iban = kwargs['iban']
         administrator = kwargs['administrator']
         customer = kwargs['customer']
-        try:
-            customer_update = self.filter(id=customer, administrator=administrator)
-            customer_update.update(first_name=first_name, last_name=last_name, iban=iban)
-        except Exception as e:
-            raise
+        validation = self.validation(first_name=first_name, last_name=last_name, iban=iban, administrator=administrator)
+        print(validation[0])
+
+        if not validation[0]:
+            return(False, validation[1])
+        else:
+            print('qitu jom')
+            try:
+                customer_update = self.filter(id=customer, administrator=administrator)
+                customer_update.update(first_name=first_name, last_name=last_name, iban=iban)
+            except Exception as e:
+                raise
+            return(True, administrator)
 
 
 class Customer(models.Model):

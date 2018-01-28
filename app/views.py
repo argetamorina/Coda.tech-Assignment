@@ -23,10 +23,9 @@ def users(request):
 def create(request):
     if request.method == 'POST':
         if request.user.is_authenticated():
-            customer = models.Customer.objects.validation(first_name=request.POST['first_name'], last_name=request.POST['last_name'], iban=request.POST['iban'], administrator = request.user)
-            print(customer[1])
+            customer = models.Customer.objects.create(first_name=request.POST['first_name'], last_name=request.POST['last_name'], iban=request.POST['iban'], administrator = request.user)
+            # False
             if customer[0]:
-                request.session['user'] = customer[1]
                 return redirect(reverse(users))
             else:
                 context = {
@@ -36,22 +35,30 @@ def create(request):
                 return render(request, 'create.html', context)
         else:
             return redirect(reverse(index))
-        return redirect(reverse('users'))
     return render(request, "create.html")
 
 def update(request, id):
     if request.method == 'POST':
         if request.user.is_authenticated():
             administrator = User.objects.get(id=request.user.id)
-            Customer.objects.update(administrator=administrator.id, customer=id, first_name=request.POST['first_name'], last_name=request.POST['last_name'], iban=request.POST['iban'])
-            return redirect(reverse('users'))
+            update = Customer.objects.update(administrator=administrator.id, customer=id, first_name=request.POST['first_name'], last_name=request.POST['last_name'], iban=request.POST['iban'])
+            print(update[0])
+            if update[0]:
+                return redirect(reverse(users))
+            else:
+                context = {
+                    'errors': update[1],
+                    'class': 'is-invalid',
+                }
+                return render(request, 'update.html', context)
 
+        else:
+                return redirect(reverse(index))
+
+        return redirect(reverse(index))
     context = {
         'customer': Customer.objects.get(id=id)
     }
-    if not request.user.is_authenticated():
-        return redirect(reverse(index))
-
     return render(request, 'update.html', context)
 
 def destroy(request, id):
@@ -63,5 +70,5 @@ def destroy(request, id):
     return redirect(reverse('users'))
 
 def logout(request):
-    auth_logout(request)
+    # auth_logout(request)
     return redirect(reverse(index))
