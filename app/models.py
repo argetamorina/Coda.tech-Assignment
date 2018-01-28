@@ -38,6 +38,19 @@ class CustomerManager(models.Manager):
         except Exception as e:
             pass
 
+    def update(self, **kwargs):
+        first_name = kwargs['first_name']
+        last_name = kwargs['last_name']
+        iban = kwargs['iban']
+        administrator = kwargs['administrator']
+        customer = kwargs['customer']
+        try:
+            customer_update = self.filter(id=customer, administrator=administrator)
+            customer_update.update(first_name=first_name, last_name=last_name, iban=iban)
+        except Exception as e:
+            raise
+
+
 class Customer(models.Model):
     first_name = models.CharField(max_length=45, blank=True)
     last_name = models.CharField(max_length=45, blank=True)

@@ -2,10 +2,11 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>User Authentication Create</title>
+    <title>User Authentication Update</title>
     {% load staticfiles %}
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
   </head>
   <body>
     <div class="container">
@@ -16,24 +17,24 @@
         {% endif %}
       {% endblock content %}
 
-      <form action="/users/create" method="post" class="hero">
+      <form action="{{customer.id}}" method="post" class="hero">
         {% csrf_token %}
         <div class="form-group">
-          Name: <input type="text" name="first_name" class="form-control {{class}}">
+          Name: <input type="text" name="first_name" class="form-control {{class}}" value="{{customer.first_name}}">
           <em class="invalid-feedback">{{errors.name}}</em>
         </div>
         <div class="form-group">
-          Last Name:<input type="text" name="last_name" class="form-control {{class}}">
+          Last Name:<input type="text" name="last_name" class="form-control {{class}}" value="{{customer.last_name}}">
           <em class="invalid-feedback">{{errors.last_name}}</em>
 
         </div>
         <div class="form-group">
-          IBAN: <input type="text" name="iban" class="form-control {{class}}">
+          IBAN: <input type="text" name="iban" class="form-control {{class}}" value="{{customer.iban}}">
           <em class="invalid-feedback">{{errors.iban}}</em>
 
         </div>
         <div class="form-group">
-          <button type="submit" class="btn btn-primary">Create a new user</button>
+          <button type="submit" class="btn btn-primary">Update a user</button>
         </div>
       </form>
     </div>

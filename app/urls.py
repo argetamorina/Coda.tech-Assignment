@@ -23,7 +23,7 @@ urlpatterns = [
     url(r'^$', views.index),
     url(r'^users/create', views.create),
     url(r'^users/', views.users, name="users"),
-    url(r'^users/update/(?P<id>\d+)$', views.update),
+    url(r'^update/(?P<id>\d+)$', views.update),
     url(r'^destroy/(?P<id>\d+)$', views.destroy),
     url(r'^logout/', views.logout),
     url(r'^auth/', include('social_django.urls', namespace='social')),

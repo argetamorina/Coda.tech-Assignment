@@ -7,13 +7,26 @@ h1 {
   text-align: center;
 }
 
-.home a {
-  /* margin-top: 50px; */
+.login {
   margin: auto;
+  text-align: center;
+  background-color: #e74c3c;
+  padding: 15px 25px;
+  border-radius: 10px;
+  border: 2px solid #e74c3c;
+  color: #fff;
+  text-decoration: none;
+  width: 220px;
+  display: block;
+  margin-top: 140px;
+}
+
+.login:hover {
+  text-decoration: none;
+  color: #fff;
 }
 
 .users-content .create-link {
-  /* margin-top: 40px; */
   float: right;
   margin-right: 20px;
 }
@@ -29,18 +42,13 @@ h1 {
 }
 
 .display-4 {
-  font-size: 36px;
+  font-size: 28px;
 }
 
 .table-content {
   margin-top: 190px;
 }
 
-form {
-  margin-top: 40px;
-}
-
-form input {
-  display: block;
-  margin-bottom: 10px;
+.hero {
+  margin-top: 140px;
 }

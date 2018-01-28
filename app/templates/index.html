@@ -12,7 +12,7 @@
     <div class="container home">
       <h1>User Authentication </h1>
       {% block content %}
-        <a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a><br>
+        <a class="login" href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a><br>
       {% endblock %}
     </div>
 

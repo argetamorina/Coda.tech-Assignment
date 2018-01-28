@@ -12,12 +12,9 @@ def index(request):
 
 def users(request):
     if request.user.is_authenticated():
-        # Do something for authenticated users.
         current_user = request.user
-        # print (current_user.first_name)
-    # else:
-        # Do something for anonymous users.
-
+    else:
+        return redirect(reverse(index))
     context = {
         'customers': Customer.objects.all()
     }
@@ -25,8 +22,6 @@ def users(request):
 
 def create(request):
     if request.method == 'POST':
-        # print(request.POST['first_name'])
-        # print(Customer.objects.all())
         if request.user.is_authenticated():
             customer = models.Customer.objects.validation(first_name=request.POST['first_name'], last_name=request.POST['last_name'], iban=request.POST['iban'], administrator = request.user)
             print(customer[1])
@@ -39,13 +34,25 @@ def create(request):
                     'class': 'is-invalid'
                 }
                 return render(request, 'create.html', context)
-        # print("hej qitu jom 2")
+        else:
+            return redirect(reverse(index))
         return redirect(reverse('users'))
     return render(request, "create.html")
 
 def update(request, id):
+    if request.method == 'POST':
+        if request.user.is_authenticated():
+            administrator = User.objects.get(id=request.user.id)
+            Customer.objects.update(administrator=administrator.id, customer=id, first_name=request.POST['first_name'], last_name=request.POST['last_name'], iban=request.POST['iban'])
+            return redirect(reverse('users'))
 
-    return redirect(reverse('users'))
+    context = {
+        'customer': Customer.objects.get(id=id)
+    }
+    if not request.user.is_authenticated():
+        return redirect(reverse(index))
+
+    return render(request, 'update.html', context)
 
 def destroy(request, id):
     if request.user.is_authenticated():
